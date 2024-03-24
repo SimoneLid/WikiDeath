@@ -3,9 +3,9 @@ import json
 import os
 from prettytable import PrettyTable
 
+
 WIKI=wikipediaapi.Wikipedia('MyProjectName','en')
 MONTHS=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
 
 
 def create_URLs(start_year, end_year):
