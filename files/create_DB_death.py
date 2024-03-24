@@ -84,7 +84,7 @@ def divide_word_day(lines):
     return days_lines
 
 def create_database_death(start_year, end_year, FORCE_DB=False):
-    if FORCE_DB or os.path.exists("death_database.json")==False:
+    if FORCE_DB or os.path.exists("files/death_database.json")==False:
         table=PrettyTable()
         table.field_names=["Month","Number of Deaths"]
         pages=create_URLs(start_year, end_year)
@@ -98,7 +98,7 @@ def create_database_death(start_year, end_year, FORCE_DB=False):
             month_death_classified=create_dict_month(month_page)
             death_list[year][month]=month_death_classified
             table.add_row([month+" "+year, sum(len(v) for v in month_death_classified.values())])
-        with open("death_database.json", "w") as db:
+        with open("files/death_database.json", "w") as db:
             json.dump(death_list,db,indent=4)
         print("-------------------------------------- Database Completed --------------------------------------")
         print(table)

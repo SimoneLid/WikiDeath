@@ -55,6 +55,6 @@ def plot(filename):
 
 if __name__=="__main__":
     create_DB_death.create_database_death(START_YEAR, END_YEAR, FORCE_DB)
-    general_statistics("death_database.json")
-    specified_statistics("death_database.json")
-    plot("death_database.json")
+    general_statistics("files/death_database.json")
+    specified_statistics("files/death_database.json")
+    plot("files/death_database.json")
