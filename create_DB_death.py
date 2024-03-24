@@ -1,6 +1,7 @@
 import wikipediaapi
 import json
 import os
+from prettytable import PrettyTable
 
 WIKI=wikipediaapi.Wikipedia('MyProjectName','en')
 MONTHS=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -44,11 +45,14 @@ def create_dict_month(page):
                 datas=line.split(",")
                 name=datas[0].strip()
                 age=int(datas[1].split("–")[0].split("-")[0].strip())
-                nationality=datas[2].split()[0].strip()
             except:
                 continue
             if age<1 or age>123 or len(name)<1 or len(name)>50:
                 continue
+            if len(datas)>2:
+                nationality=datas[2].split()[0].strip()
+            else:
+                nationality="Undefined"
             if day in month_death_classified.keys():
                 month_death_classified[day].append({"name":name,"age":age,"nation":nationality})
             else:
@@ -81,6 +85,8 @@ def divide_word_day(lines):
 
 def create_database_death(start_year, end_year, FORCE_DB=False):
     if FORCE_DB or os.path.exists("death_database.json")==False:
+        table=PrettyTable()
+        table.field_names=["Month","Number of Deaths"]
         pages=create_URLs(start_year, end_year)
         #control_URLs_existance(pages)
         death_list={}
@@ -91,8 +97,10 @@ def create_database_death(start_year, end_year, FORCE_DB=False):
             month=month_page.split("_")[2]
             month_death_classified=create_dict_month(month_page)
             death_list[year][month]=month_death_classified
+            table.add_row([month+" "+year, sum(len(v) for v in month_death_classified.values())])
         with open("death_database.json", "w") as db:
             json.dump(death_list,db,indent=4)
         print("-------------------------------------- Database Completed --------------------------------------")
+        print(table)
     else:
         print("------------------------------------ Database already exist ------------------------------------")

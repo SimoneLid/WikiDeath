@@ -37,10 +37,10 @@ def general_statistics(filename):
 #statistiche specificate da utente
 def specified_statistics(filename):
     datas, table= table_data_creation(filename)
-    stats_calc.n_people_nationality(datas, table, "Hungarian")
-    stats_calc.n_people_age(datas, table, 104)
-    stats_calc.search_name(datas, table, "Simone")
-    stats_calc.search_date(datas, table, "29 February")
+    stats_calc.n_people_nationality(datas, table, "Italian")
+    stats_calc.n_people_age(datas, table, 69)
+    stats_calc.search_name(datas, table, "Queen Elizabeth II")
+    stats_calc.search_date(datas, table, "25")
     print("---------------------------------------- Specific Stats ----------------------------------------")
     print(table)
 
@@ -50,5 +50,3 @@ if __name__=="__main__":
     create_DB_death.create_database_death(START_YEAR, END_YEAR, FORCE_DB)
     general_statistics("death_database.json")
     specified_statistics("death_database.json")
-
-    #prova=create_DB_death.create_dict_month("Deaths_in_February_2023")
